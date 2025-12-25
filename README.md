@@ -1,58 +1,84 @@
-# airbnb-price-prediction
-Predicting Airbnb prices using data analysis and machine learning
-Results
-Model Performance Summary
+# Airbnb Price Prediction
 
-Several models were evaluated to predict Airbnb listing prices using a subset of numerical and categorical features.
+Predicting Airbnb listing prices using exploratory data analysis and machine learning with scikit-learn pipelines.
 
-| Model                   | Target                | R² Score | MAE      |
-| ----------------------- | --------------------- | -------- | -------- |
-| Linear Regression       | Raw Price             | ~0.04    | High     |
-| Linear Regression       | Log-Transformed Price | ~0.16    | Improved |
-| Random Forest Regressor | Log-Transformed Price | **0.22** | **0.91** |
+ Project Overview
 
+This project aims to predict Airbnb listing prices based on property characteristics such as room type, capacity, bedrooms, and review scores.
+It demonstrates a complete machine learning workflow, from data exploration to preprocessing pipelines and model evaluation.
+| Model                        | Target        | R² Score | RMSE / MAE      |
+| ---------------------------- | ------------- | -------- | --------------- |
+| Linear Regression            | Raw Price     | ~0.04    | High error      |
+| Linear Regression            | Log-Price     | ~0.16    | Improved        |
+| Random Forest (no pipeline)  | Log-Price     | ~0.22    | MAE ≈ 0.91      |
+| **Random Forest (Pipeline)** | **Log-Price** | **0.82** | **RMSE ≈ 0.30** |
 
-The baseline Linear Regression model performed poorly due to the highly skewed price distribution and sensitivity to outliers. Applying a logarithmic transformation to the target variable significantly improved model stability and predictive performance.
+Final Model
 
-The Random Forest model achieved the best overall results, confirming that the relationship between listing features and price is non-linear.
+Random Forest Regressor
 
-Key Insights
+Target variable transformed using log1p
+
+Full preprocessing handled inside a scikit-learn Pipeline using ColumnTransformer
+
+🔍 Key Insights
 
 Bedrooms is the strongest predictor of price.
 
 Accommodates (listing capacity) has a strong positive impact on pricing.
 
-Review scores contribute to price variation but with weaker influence.
+Room type significantly affects price (entire homes cost substantially more).
 
-Linear models struggle to capture Airbnb pricing behavior without transformations.
+Review scores contribute to pricing but with weaker influence.
 
-Interpretation of Results
+Linear models struggle due to skewed distributions and non-linear relationships.
 
-An 
-𝑅
-2
-R
-2
- score of 0.22 indicates that the model explains approximately 22% of the variance in listing prices using a limited feature set. While this may seem modest, it is expected for real-world pricing data influenced by many unobserved factors such as exact location, seasonality, and host behavior.
+📊 Interpretation of Results
 
-The Mean Absolute Error (MAE) of 0.91 on the log-transformed scale reflects reasonable predictive accuracy for a first end-to-end machine learning project.
+An R² score of 0.82 indicates that the final pipeline-based model explains most of the variance in Airbnb prices using a limited but meaningful feature set.
 
-Limitations
+The RMSE of ~0.30 on the log-transformed scale reflects strong predictive performance given the inherent noise in real-world pricing data, which is influenced by unobserved factors such as exact location, seasonality, and host behavior.
+
+This improvement highlights:
+
+The importance of log-transforming skewed targets
+
+The effectiveness of tree-based models
+
+The critical role of pipelines in preventing data leakage
+
+⚙️ Tools & Techniques
+
+Python, NumPy, pandas
+
+Matplotlib, Seaborn
+
+scikit-learn
+
+Pipelines
+
+ColumnTransformer
+
+Random Forest Regressor
+
+Cross-validation
+
+# Limitations
 
 Limited feature engineering
 
-No temporal or seasonal effects included
+No temporal or seasonal effects
 
-Location granularity simplified
+Simplified location representation
 
-No hyperparameter tuning applied
+No advanced hyperparameter tuning
 
-Future Improvements
+# Future Improvements
 
 Add geospatial features (distance to city center, clustering)
 
-Apply advanced preprocessing pipelines
+Perform hyperparameter tuning with GridSearchCV
 
-Tune models using GridSearchCV
+Include additional features such as availability and amenities
 
-Incorporate additional features such as availability and amenities
+Experiment with Gradient Boosting models features such as availability and amenities
